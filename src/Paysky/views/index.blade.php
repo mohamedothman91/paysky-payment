@@ -19,7 +19,7 @@
                 TrxDateTime: "{{ $payment['TrxDateTime'] }}",
                 SecureHash: "{{ $payment['SecureHash'] }}",
                 completeCallback: function(data) {
-                    @if(Route::has('paysky.payment.completeCallbac'))
+                    @if(Route::has('paysky.payment.completeCallback'))
                         var url = "{{ route('paysky.payment.completeCallback') }}";
                             url += "?refNumber={{ $payment['MerchantReference'] }}";
                             url += "&TxnNumber=" + data.SystemReference;
