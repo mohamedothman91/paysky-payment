@@ -37,8 +37,11 @@ PaySky_MerchantId= XXXXX
 PaySky_TerminalId= XXXXX
 PaySky_Enviroment= sandbox-production   
 ```
-
-
+Create 2 routes for callback with name
+```bash
+completeCallback -> paysky.payment.completeCallback
+errorCallback -> paysky.payment.errorCallback
+```
 In Controller init new payment class add amount - oderId - merchRef
 ```bash
 $payment = PaySky::makePayment(100000 , rand() );
