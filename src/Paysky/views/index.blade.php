@@ -1,5 +1,4 @@
 <button type="button" class="btn btn-info" id="paysky_payment_id" onclick="showLightBox()">{{__('paysky.paybtn')}}</button>
-
 @isset($payment)
 
     @if (env('PaySky_Enviroment') == 'production')
@@ -20,16 +19,21 @@
                 TrxDateTime: "{{ $payment['TrxDateTime'] }}",
                 SecureHash: "{{ $payment['SecureHash'] }}",
                 completeCallback: function(data) {
-                    var url = "{{ route('paysky.payment.completeCallback') }}";
-                    url += "?refNumber={{ $payment['MerchantReference'] }}";
-                    url += "&TxnNumber=" + data.SystemReference;
-                    window.location.href = url;
+                    @if(Route::has('paysky.payment.completeCallbac'))
+                        var url = "{{ route('paysky.payment.completeCallback') }}";
+                            url += "?refNumber={{ $payment['MerchantReference'] }}";
+                            url += "&TxnNumber=" + data.SystemReference;
+                            window.location.href = url;
+                    @endif
+                  
 
                 },
                 errorCallback: function(data) {
-                    var url = "{{ route('paysky.payment.errorCallback') }}";
-                    url += "?refNumber={{ $payment['MerchantReference'] }}";
-                    window.location.href = url;
+                    @if(Route::has('paysky.payment.completeCallback'))
+                        var url = "{{ route('paysky.payment.errorCallback') }}";
+                            url += "?refNumber={{ $payment['MerchantReference'] }}";
+                        window.location.href = url;
+                    @endif
                 },
                 cancelCallback: function() {
                     console.log('cancel');
